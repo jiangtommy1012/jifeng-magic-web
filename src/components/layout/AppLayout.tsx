@@ -19,9 +19,19 @@ const AppLayout = () => {
 
   const closeMobile = () => setMobileOpen(false);
 
+  // Spacer that matches the AppBar height INCLUDING the iOS safe-area inset,
+  // so drawer content and main content are not hidden behind the (taller) AppBar
+  // when launched as a standalone home-screen app.
+  const appBarOffset = {
+    minHeight: {
+      xs: 'calc(56px + env(safe-area-inset-top))',
+      sm: 'calc(64px + env(safe-area-inset-top))',
+    },
+  };
+
   const drawerContent = (
     <>
-      <Toolbar />
+      <Box sx={appBarOffset} />
       <Sidebar onNavigate={closeMobile} />
     </>
   );
@@ -94,9 +104,9 @@ const AppLayout = () => {
           flexGrow: 1,
           width: { md: `calc(100% - ${DRAWER_WIDTH}px)` },
           p: { xs: 2, md: 3 },
-          mt: 8,
         }}
       >
+        <Box sx={appBarOffset} />
         <Outlet />
       </Box>
     </Box>
