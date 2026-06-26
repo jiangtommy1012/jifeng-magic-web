@@ -32,9 +32,18 @@ const futureRoutes = [
   { label: 'Weekly Report', path: '/weekly-report', icon: <SummarizeIcon /> },
 ];
 
-const Sidebar = () => {
+interface SidebarProps {
+  onNavigate?: () => void;
+}
+
+const Sidebar = ({ onNavigate }: SidebarProps) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const go = (path: string) => {
+    navigate(path);
+    onNavigate?.();
+  };
 
   return (
     <Box sx={{ width: DRAWER_WIDTH }}>
@@ -43,7 +52,7 @@ const Sidebar = () => {
           <ListItem key={item.path} disablePadding>
             <ListItemButton
               selected={pathname === item.path || (item.path !== '/' && pathname.startsWith(item.path))}
-              onClick={() => navigate(item.path)}
+              onClick={() => go(item.path)}
               sx={{ borderRadius: 1, mx: 0.5 }}
             >
               <ListItemIcon sx={{ minWidth: 36 }}>{item.icon}</ListItemIcon>
@@ -63,7 +72,7 @@ const Sidebar = () => {
         {futureRoutes.map((item) => (
           <ListItem key={item.path} disablePadding>
             <ListItemButton
-              onClick={() => navigate(item.path)}
+              onClick={() => go(item.path)}
               sx={{ borderRadius: 1, mx: 0.5, opacity: 0.6 }}
             >
               <ListItemIcon sx={{ minWidth: 36 }}>{item.icon}</ListItemIcon>
