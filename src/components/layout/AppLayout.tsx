@@ -19,19 +19,13 @@ const AppLayout = () => {
 
   const closeMobile = () => setMobileOpen(false);
 
-  // Spacer that matches the AppBar height INCLUDING the iOS safe-area inset,
-  // so drawer content and main content are not hidden behind the (taller) AppBar
-  // when launched as a standalone home-screen app.
-  const appBarOffset = {
-    minHeight: {
-      xs: 'calc(56px + env(safe-area-inset-top))',
-      sm: 'calc(64px + env(safe-area-inset-top))',
-    },
-  };
-
+  // Standard Toolbar-height spacer. With the `default` iOS status-bar style,
+  // the system reserves the status-bar space automatically, so the fixed AppBar
+  // sits flush below it and a plain Toolbar-height spacer aligns content perfectly
+  // in both browser and standalone home-screen modes.
   const drawerContent = (
     <>
-      <Box sx={appBarOffset} />
+      <Toolbar />
       <Sidebar onNavigate={closeMobile} />
     </>
   );
@@ -42,9 +36,6 @@ const AppLayout = () => {
         position="fixed"
         sx={{
           zIndex: (theme) => theme.zIndex.drawer + 1,
-          pt: 'env(safe-area-inset-top)',
-          pl: 'env(safe-area-inset-left)',
-          pr: 'env(safe-area-inset-right)',
         }}
       >
         <Toolbar>
@@ -106,7 +97,7 @@ const AppLayout = () => {
           p: { xs: 2, md: 3 },
         }}
       >
-        <Box sx={appBarOffset} />
+        <Toolbar />
         <Outlet />
       </Box>
     </Box>
