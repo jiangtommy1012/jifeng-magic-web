@@ -1,4 +1,4 @@
-name = "magic-market-api"
+name = "jifeng-magic-web"
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 
